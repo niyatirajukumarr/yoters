@@ -160,7 +160,7 @@ function CustomerPageInner() {
         backdropFilter: 'blur(12px)', zIndex: 100
       }}>
         <Link href="/" style={{ fontFamily: 'var(--font-head)', fontSize: 22, fontWeight: 800 }}>
-        <span style={{ color: 'var(--accent)' }}>YOTERS</span>
+          Queue<span style={{ color: 'var(--accent)' }}>Eat</span>
         </Link>
         <div style={{ display: 'flex', gap: 8 }}>
           {(['browse', 'join', 'tracking', 'preorder'] as Step[]).map((s, i) => (
@@ -384,20 +384,78 @@ function CustomerPageInner() {
             </p>
 
             {orderSubmitted ? (
-              <div style={{
-                background: 'rgba(46,204,113,0.1)', border: '1px solid rgba(46,204,113,0.3)',
-                borderRadius: 16, padding: 40, textAlign: 'center'
-              }}>
-                <div style={{ fontSize: 48, marginBottom: 12 }}>✅</div>
-                <div style={{ fontFamily: 'var(--font-head)', fontSize: 22, fontWeight: 700, color: 'var(--green)' }}>
-                  Order received!
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                {/* Order confirmed banner */}
+                <div style={{
+                  background: 'rgba(46,204,113,0.1)', border: '1px solid rgba(46,204,113,0.3)',
+                  borderRadius: 16, padding: 24, textAlign: 'center'
+                }}>
+                  <div style={{ fontSize: 40, marginBottom: 8 }}>✅</div>
+                  <div style={{ fontFamily: 'var(--font-head)', fontSize: 20, fontWeight: 700, color: 'var(--green)' }}>
+                    Order placed!
+                  </div>
+                  <div style={{ color: 'var(--text2)', marginTop: 6, fontSize: 14 }}>
+                    Complete payment below to confirm your pre-order
+                  </div>
                 </div>
-                <div style={{ color: 'var(--text2)', marginTop: 8 }}>
-                  The kitchen will start preparing when you&apos;re nearly seated.
+
+                {/* UPI Payment Card */}
+                <div style={{
+                  background: 'var(--surface)', border: '1px solid var(--border)',
+                  borderRadius: 16, padding: 28, textAlign: 'center'
+                }}>
+                  <div style={{ fontFamily: 'var(--font-head)', fontSize: 18, fontWeight: 700, marginBottom: 4 }}>
+                    Pay via UPI
+                  </div>
+                  <div style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 20 }}>
+                    Scan QR or tap Pay Now to open your UPI app
+                  </div>
+
+                  {/* Amount */}
+                  <div style={{
+                    background: 'var(--surface2)', borderRadius: 12, padding: '14px 20px',
+                    marginBottom: 24, display: 'inline-block'
+                  }}>
+                    <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 2 }}>Total Amount</div>
+                    <div style={{ fontFamily: 'var(--font-head)', fontSize: 32, fontWeight: 800, color: 'var(--accent)' }}>
+                      ₹{cartTotal}
+                    </div>
+                  </div>
+
+                  {/* QR Code using free API */}
+                  <div style={{ marginBottom: 24 }}>
+                    <img
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(`upi://pay?pa=niyati.rajukumar@okaxis&pn=Yoters&am=${cartTotal}&cu=INR&tn=Food pre-order at ${selected?.name}`)}`}
+                      alt="UPI QR Code"
+                      style={{ borderRadius: 12, border: '4px solid white' }}
+                    />
+                    <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 8 }}>
+                      Scan with any UPI app
+                    </div>
+                  </div>
+
+                  {/* Pay Now button — opens UPI app directly */}
+                  <a
+                    href={`upi://pay?pa=niyati.rajukumar@okaxis&pn=Yoters&am=${cartTotal}&cu=INR&tn=Food pre-order at ${selected?.name}`}
+                    style={{ display: 'block', textDecoration: 'none' }}
+                  >
+                    <button style={{
+                      width: '100%', padding: '15px', borderRadius: 12, border: 'none',
+                      background: 'linear-gradient(135deg, #00b09b, #96c93d)',
+                      color: 'white', fontSize: 16, fontWeight: 700, marginBottom: 10
+                    }}>
+                      📱 Pay ₹{cartTotal} Now
+                    </button>
+                  </a>
+
+                  <div style={{ fontSize: 12, color: 'var(--muted)' }}>
+                    UPI ID: niyati.rajukumar@okaxis
+                  </div>
                 </div>
+
                 <button onClick={() => setStep('tracking')} style={{
-                  marginTop: 20, padding: '12px 28px', borderRadius: 10, border: 'none',
-                  background: 'var(--accent)', color: 'white', fontSize: 15, fontWeight: 600
+                  padding: '12px', borderRadius: 10, border: '1px solid var(--border)',
+                  background: 'transparent', color: 'var(--muted)', fontSize: 14
                 }}>Back to Queue Status</button>
               </div>
             ) : (
