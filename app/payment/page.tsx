@@ -117,7 +117,7 @@ function PaymentPageContent() {
           }
           setTimeout(() => {
             if (window.opener) window.close()
-            else router.push(`/mobile/home`)
+            else router.push(`/browse`)
           }, 4000)
           return
         }
@@ -191,7 +191,7 @@ function PaymentPageContent() {
             window.opener.postMessage({ type: 'PAYMENT_SUCCESS', orderId }, '*')
             setTimeout(() => window.close(), 3000)
           } else {
-            setTimeout(() => router.push(`/mobile/home`), 3000)
+            setTimeout(() => router.push(`/browse`), 3000)
           }
         },
         modal: {
