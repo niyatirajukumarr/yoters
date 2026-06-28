@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const RAZORPAY_KEY_ID = 'rzp_live_SydTJERNFEVhv6'
-const RAZORPAY_KEY_SECRET = 'IjzjfXi3VdatcieikU3PvFhY'
-const RAZORPAY_ACCOUNT_ID = 'StUKJCKV9glTR7'
+const RAZORPAY_KEY_ID = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
+const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET
+const RAZORPAY_ACCOUNT_ID = process.env.RAZORPAY_ACCOUNT_ID
 
 async function createRazorpayPayout(amount: number, upiId: string, vendorName: string) {
   try {
