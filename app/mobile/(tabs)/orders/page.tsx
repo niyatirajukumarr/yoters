@@ -165,8 +165,17 @@ export default function MobileOrders() {
                       <div style={{ fontFamily: 'var(--font-head)', fontSize: 15, fontWeight: 700, marginBottom: 3 }}>
                         {cafe?.name || 'Cafeteria'}
                       </div>
-                      <div style={{ fontSize: 12, color: 'var(--muted)' }}>
+                      <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 2 }}>
                         #{order.id.slice(0, 8)}
+                      </div>
+                      <div style={{ fontSize: 11, color: 'var(--muted)' }}>
+                        🕐 {new Date(order.created_at).toLocaleString('en-IN', {
+                          month: 'short',
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          hour12: true
+                        })}
                       </div>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
