@@ -31,6 +31,19 @@ export default function LandingPage() {
   const heroY = useTransform(scrollYProgress, [0, 600], [0, -80])
   const heroOpacity = useTransform(scrollYProgress, [0, 400], [1, 0])
 
+  // Detect mobile and redirect
+  useEffect(() => {
+    const isMobileDevice = () => {
+      const userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : ''
+      return /iPhone|iPad|iPod|Android|Mobile|Tablet|webOS|BlackBerry|Windows Phone/i.test(userAgent)
+    }
+
+    if (isMobileDevice()) {
+      router.replace('/mobile')
+      return
+    }
+  }, [router])
+
   useEffect(() => {
     let isMounted = true
 
